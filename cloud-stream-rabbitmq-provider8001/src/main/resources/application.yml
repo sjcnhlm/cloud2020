@@ -1,0 +1,30 @@
+#bootstrap.yml
+server:
+  port: 8801
+
+spring:
+  application:
+    name: cloud-stream-provider
+  cloud:
+    stream:
+      binders:
+        defaultRabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
+      bindings: # \u670D\u52A1\u7684\u6574\u5408\u5904\u7406
+        output: # \u8FD9\u662F\u4E00\u4E2A\u901A\u9053\u7684\u540D\u5B57
+          destination: MystudyExcange # \u4F7F\u7528\u7684Exchange\u5B9A\u4E49
+          content-type: application/json # \u6D88\u606F\u7C7B\u578B
+          binder: defaultRabbit # \u8BBE\u7F6E\u8981\u7ED1\u5B9A\u7684\u6D88\u606F\u670D\u52A1\u7684\u5177\u4F53\u8BBE\u7F6E
+#\u670D\u52A1\u6CE8\u518C\u5230eureka\u5730\u5740
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+
